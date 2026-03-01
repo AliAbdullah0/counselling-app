@@ -50,3 +50,13 @@ export const getCurrentDoctor = async () => {
   }
   return 
 }
+
+export const isLoggedIn = async () => {
+ const cookie = await cookies();
+ const patientCookie = cookie.get("session.cookie.id")?.value
+ const doctorCookie = cookie.get("doctor.session.id")?.value
+ if(patientCookie || doctorCookie) {
+  return true
+ }
+ return false
+}

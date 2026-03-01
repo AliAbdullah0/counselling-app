@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Nunito_Sans } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
+import Navigation from "@/components/Navigation";
+
 
 const nunitoSans = Nunito_Sans({variable:'--font-sans'});
 
@@ -29,8 +31,11 @@ export default function RootLayout({
     <html lang="en" className={nunitoSans.variable}>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+      >        {/* site-wide navigation bar */}
+        {/* using a server component so auth state is resolved on the server */}
+        {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+        {/*@ts-ignore */}
+        <Navigation />        {children}
         <Toaster position="bottom-right" richColors/>
       </body>
     </html>
