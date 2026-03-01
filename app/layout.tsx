@@ -3,6 +3,8 @@ import { Geist, Geist_Mono, Nunito_Sans } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
 import Navigation from "@/components/Navigation";
+import { Footer7 } from "@/components/footer7";
+
 
 
 const nunitoSans = Nunito_Sans({variable:'--font-sans'});
@@ -37,6 +39,7 @@ export default function RootLayout({
         {/*@ts-ignore */}
         <Navigation />        {children}
         <Toaster position="bottom-right" richColors/>
+        <Footer7 className="mt-20"/>
       </body>
     </html>
   );
