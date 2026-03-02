@@ -1,9 +1,12 @@
-import React from 'react'
+import  Feature from "@/components/Feature";
+import { Hero47 } from "@/components/Hero47";
 
-const Home = () => {
+export default function Home() {
   return (
-    <div>Home</div>
-  )
+    <main>
+      <Hero47 />
+      <Feature />
+    
+    </main>
+  );
 }
-
-export default Home
