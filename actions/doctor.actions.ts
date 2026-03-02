@@ -4,7 +4,7 @@ import prisma from "@/lib/prisma"
 import argon2 from "argon2"
 import { cookies } from "next/headers"
 import { getCurrentDoctor } from "./helper.actions"
-import { redirect } from "next/navigation"
+
 
 export const createDoctor = async (form: FormData) => {
   const name = form.get("name") as string
