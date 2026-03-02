@@ -80,7 +80,3 @@ export const loginPatient = async (form:FormData)=>{
     }
 }
 
-export const logOut = async ()=>{
-    (await cookies()).delete("session.cookie.id")
-    redirect("/sign-up")
-}

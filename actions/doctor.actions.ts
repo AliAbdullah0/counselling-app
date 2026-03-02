@@ -113,7 +113,6 @@ export const loginDoctor = async (form: FormData) => {
      const cookie = await cookies()
 
     await cookie.set("doctor.session.id", doctor.id)
-
     return {
       status: 200,
       message: "Login successful.",

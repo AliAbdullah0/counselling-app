@@ -1,9 +1,7 @@
 import Link from "next/link";
 import { isLoggedIn } from "@/actions/helper.actions";
-import { logOut } from "@/actions/user.actions";
 import { Button } from "@/components/ui/button";
 import MobileNav from "./MobileNav";
-import { LogOutIcon } from "lucide-react";
 
 export default async function Navigation() {
   const loggedIn = await isLoggedIn();
@@ -36,20 +34,17 @@ export default async function Navigation() {
 
           <div className="flex items-center gap-3">
             <MobileNav />
-            <div className="hidden sm:block">
-              {loggedIn ? (
-                <form action={logOut}>
-                    <LogOutIcon/>
-                </form>
-              ) : (
+            { !loggedIn && (
+              <div className="hidden sm:block">
                 <Button
                   asChild
                   className="px-6 hover:bg-cyan-800 hover:text-white"
-                >
+                  >
                   <Link href="/login">Login</Link>
                 </Button>
-              )}
             </div>
+                )
+}
           </div>
         </div>
       </div>

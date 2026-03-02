@@ -55,7 +55,8 @@ export const isLoggedIn = async () => {
  const cookie = await cookies();
  const patientCookie = cookie.get("session.cookie.id")?.value
  const doctorCookie = cookie.get("doctor.session.id")?.value
- if(patientCookie || doctorCookie) {
+ const adminCookie = cookie.get("admin.session.id")?.value
+ if(patientCookie || doctorCookie || adminCookie){ 
   return true
  }
  return false

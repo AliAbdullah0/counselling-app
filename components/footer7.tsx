@@ -69,6 +69,7 @@ const defaultLegalLinks = [
   { name: "Privacy Policy", href: "#" },
 ];
 
+
 const Footer7 = ({
   logo = {
     url: "/",
@@ -85,7 +86,7 @@ const Footer7 = ({
 }: Footer7Props) => {
   return (
     <section className={cn("py-16 pl-8 pr-8", className)}>
-      <div className="container">
+      <div className="">
         <div className="flex w-full flex-col justify-between gap-10 lg:flex-row lg:items-start lg:text-left">
           <div className="flex w-full flex-col justify-between gap-6 lg:items-start">
             <div className="flex items-center gap-2 lg:justify-start">

@@ -11,43 +11,56 @@ interface Hero47Props {
     alt: string;
   };
   buttons?: {
-    primary?: { text: string; url: string; };
-    secondary?: { text: string; url: string; };
+    primary?: {
+      text: string;
+      url: string;
+    };
+    secondary?: {
+      text: string;
+      url: string;
+    };
   };
   className?: string;
 }
 
 const Hero47 = ({
-  heading = "Your Safe Space to Talk,",
-  subheading = "Heal & Grow",
-  description = "A compassionate counselling platform that listens without judgment, helps you process your thoughts, and supports your mental well-being anytime you need it.",
+  heading = "Your Safe Space to Talk, Heal, and Grow",
+  subheading = " Powered By Next.js",
+  description = "A compassionate AI counseling bot that listens without judgment,helps you process your thoughts, and supports your mental well-being anytime you need it.",
   buttons = {
-    primary: { text: "Get Started", url: "/sign-up" },
-    secondary: { text: "Learn More", url: "/about" },
+    primary: {
+      text: "Get Started",
+      url: "#",
+    },
+    secondary: {
+      text: "Read the docs",
+      url: "#",
+    },
   },
   image = {
-    src: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-dark-7-tall.svg",
+    src: "/landing/hero.png",
     alt: "Placeholder",
   },
   className,
 }: Hero47Props) => {
   return (
-    <section className={cn("bg-background pt-8 pb-10 lg:pt-3 lg:pb-12 pl-8", className)}>
-      <div className="container flex flex-col items-center gap-8 lg:flex-row">
-        <div className="flex flex-col gap-6 lg:w-2/3">
-          <h2 className="text-4xl font-semibold text-foreground lg:text-6xl animate-fade-in">
-            <span>{heading} </span>
-            <br></br>
+    <section className={cn("bg-background w-full mt-8 ", className)}>
+      <div className="flex flex-col w-full items-center gap-10 lg:my-0 lg:flex-row">
+        <div className="flex flex-col px-8 gap-7 lg:w-2/3">
+          <h2 className="text-5xl font-semibold text-foreground md:text-5xl lg:text-8xl">
+            <span>{heading}</span>
             <span className="text-muted-foreground">{subheading}</span>
           </h2>
-          <p className="text-base text-muted-foreground md:text-lg">
+          <p className="text-base text-muted-foreground md:text-lg lg:text-xl">
             {description}
           </p>
-          <div className="flex flex-wrap items-start gap-4">
+          <div className="flex flex-wrap items-start gap-5 lg:gap-7">
             <Button asChild>
               <a href={buttons.primary?.url}>
-                <ArrowUpRight className="size-4" />
-                <span className="px-4 text-sm lg:text-base">
+                <div className="flex items-center gap-2">
+                  <ArrowUpRight className="size-4" />
+                </div>
+                <span className="pr-6 pl-4 text-sm whitespace-nowrap lg:pr-8 lg:pl-6 lg:text-base">
                   {buttons.primary?.text}
                 </span>
               </a>
@@ -57,19 +70,19 @@ const Hero47 = ({
             </Button>
           </div>
         </div>
-        <div className="relative z-10">
-          <div className="absolute top-2.5 left-1/2! h-[92%]! w-[69%]! -translate-x-[52%] overflow-hidden rounded-[35px]">
+        <div className="relative z-10 hover:-translate-y-1.5 transition-all duration-300">
+          <div className="absolute top-2.5 left-1/2! bg-primary-foreground h-[92%]! w-[69%]! -translate-x-[52%] overflow-hidden rounded-[35px]">
             <img
               src={image.src}
               alt={image.alt}
-              className="size-full object-cover object-[50%_0%]"
+              className="size-full object-contain "
             />
           </div>
           <img
             className="relative z-10"
             src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/mockups/phone-2.png"
-            width={300}
-            height={100}
+            width={450}
+            height={889}
             alt="iphone"
           />
         </div>
