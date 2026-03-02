@@ -2,6 +2,7 @@
 
 import prisma from "@/lib/prisma"
 import { cookies } from "next/headers"
+import { redirect } from "next/navigation"
 
 export const getCurrentPatient = async () => {
   const cookieStore = await cookies()
@@ -60,4 +61,14 @@ export const isLoggedIn = async () => {
   return true
  }
  return false
+}
+
+export async function logout() {
+  const cookieStore =  await cookies();
+
+  cookieStore.delete("session.cookie.id");
+  cookieStore.delete("doctor.session.id");
+  cookieStore.delete("admin.session.id");
+
+  redirect("/login");
 }
