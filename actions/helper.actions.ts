@@ -2,6 +2,7 @@
 
 import prisma from "@/lib/prisma"
 import { cookies } from "next/headers"
+import { redirect } from "next/navigation"
 
 export const getCurrentPatient = async () => {
   const cookieStore = await cookies()
@@ -11,7 +12,7 @@ export const getCurrentPatient = async () => {
     const patient = await prisma.patient.findUnique({
       where: { id: patientCookie },
       include: {
-        Doctors: true, 
+        doctor: true, 
       },
     })
 
@@ -35,7 +36,7 @@ export const getCurrentDoctor = async () => {
     const doctor = await prisma.doctor.findUnique({
       where: { id},
       include: {
-        Patient: true, 
+        patients: true, 
       },
     })
     console.log(doctor)
@@ -48,7 +49,7 @@ export const getCurrentDoctor = async () => {
       data: doctor,
     }
   }
-  return 
+  return { status: 404, data: null }
 }
 
 export const isLoggedIn = async () => {
@@ -61,3 +62,46 @@ export const isLoggedIn = async () => {
  }
  return false
 }
+
+export async function logout() {
+  const cookieStore =  await cookies();
+
+  cookieStore.delete("session.cookie.id");
+  cookieStore.delete("doctor.session.id");
+  cookieStore.delete("admin.session.id");
+
+  redirect("/login");
+}
+
+
+export const getAllDoctors = async ()=>{
+  try {
+    const res = await prisma.doctor.findMany({
+      include:{
+        patients:true
+      }
+    })
+    return {
+      success:200,
+      res
+    }
+  } catch (error) {
+    throw new Error("Error fetching doctors!")
+  }
+}
+
+export const getAllPatients = async ()=>{
+  try {
+    const res = await prisma.patient.findMany({
+      include:{
+        doctor:true}
+    })
+    return {
+      success:200,
+      res
+    };
+  } catch (error) {
+    throw new Error("Error fetching patients!")
+  }
+}
+

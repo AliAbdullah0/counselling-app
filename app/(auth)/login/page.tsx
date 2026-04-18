@@ -14,6 +14,7 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import Link from "next/link";
 
 export default function SignInPage() {
   const router = useRouter();
@@ -192,10 +193,17 @@ export default function SignInPage() {
                   {loading && <Loader2 className="animate-spin w-4 h-4" />}
                   {loading ? "Logging in..." : "Login as Admin"}
                 </Button>
+                
               </form>
             </TabsContent>
 
           </Tabs>
+          <p className="text-muted-foreground text-sm mt-4">
+                  Don&apos;t have an account?{" "}
+                  <Link href="/sign-up" className="underline underline-offset-4">
+                    Sign Up
+                  </Link>
+                </p>
         </CardContent>
       </Card>
     </div>

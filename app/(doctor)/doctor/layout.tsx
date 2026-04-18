@@ -1,12 +1,17 @@
 import Link from 'next/link';
-import { AppWindowIcon, LayoutDashboard, Menu, Settings, Users } from 'lucide-react';
+import {  LayoutDashboard, Users } from 'lucide-react';
 
 import { MobileSidebar } from '@/components/MobileSidebar'; 
 
 const DoctorLayout = ({ children }: { children: React.ReactNode }) => {
+  const checkVerificationStatus = ()=>{
+
+  }
     const links = [
-        { name: 'Dashboard', href: '/admin', icon: <LayoutDashboard className="h-5 w-5 text-zinc-500 group-hover:text-[#B7B0A3] transition-colors" /> },
-        { name: 'Patients', href: '/admin/patients', icon: <Users className="h-5 w-5 text-zinc-500 group-hover:text-[#B7B0A3] transition-colors" /> },
+        { name: 'Dashboard', href: '/', icon: <LayoutDashboard className="h-5 w-5 text-zinc-500 group-hover:text-[#B7B0A3] transition-colors" /> },
+        { name: 'Patients', href: '/doctor/patients', icon: <Users className="h-5 w-5 text-zinc-500 group-hover:text-[#B7B0A3] transition-colors" /> },
+        { name: 'Requests', href: '/doctor/requests', icon: <Users className="h-5 w-5 text-zinc-500 group-hover:text-[#B7B0A3] transition-colors" /> },
+
     ]
   return (
     <div className="flex h-screen w-full overflow-hidden bg-zinc-50">

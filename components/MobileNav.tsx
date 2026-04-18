@@ -42,11 +42,6 @@ export default function MobileNav() {
             >
               Contact
             </Link>
-            <Button asChild className="w-full">
-              <Link href="/login" passHref>
-                Login
-              </Link>
-            </Button>
           </div>
         </DrawerContent>
       </Drawer>

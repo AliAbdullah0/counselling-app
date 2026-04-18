@@ -5,37 +5,53 @@ export function proxy(request: NextRequest) {
   const doctorCookie = request.cookies.get("doctor.session.id");
   const patientCookie = request.cookies.get("session.cookie.id");
   const adminCookie = request.cookies.get("admin.session.id");
+  const doctorVerifiedCookie = request.cookies.get("verified.doctor");
 
   const pathname = request.nextUrl.pathname;
-  console.log("Cookies:", { doctorCookie, patientCookie, adminCookie });
 
   const loginPaths = ["/login", "/sign-up"];
   const patientPaths = ["/patient"];
   const doctorPaths = ["/doctor"];
   const adminPaths = ["/admin"];
 
-  // --- Redirect logged-in users away from login/signup ---
   if (adminCookie) {
-    if (loginPaths.includes(pathname) || patientPaths.includes(pathname) || doctorPaths.includes(pathname)) {
+    if (
+      loginPaths.some((p) => pathname.startsWith(p)) ||
+      patientPaths.some((p) => pathname.startsWith(p)) ||
+      doctorPaths.some((p) => pathname.startsWith(p))
+    ) {
       return NextResponse.redirect(new URL("/admin", request.url));
     }
   }
 
   if (doctorCookie) {
-    if (loginPaths.includes(pathname) || patientPaths.includes(pathname) || adminPaths.includes(pathname)) {
+    if (
+      loginPaths.some((p) => pathname.startsWith(p)) ||
+      patientPaths.some((p) => pathname.startsWith(p)) ||
+      adminPaths.some((p) => pathname.startsWith(p))
+    ) {
       return NextResponse.redirect(new URL("/doctor", request.url));
     }
   }
 
   if (patientCookie) {
-    if (loginPaths.includes(pathname) || doctorPaths.includes(pathname) || adminPaths.includes(pathname)) {
+    if (
+      loginPaths.some((p) => pathname.startsWith(p)) ||
+      doctorPaths.some((p) => pathname.startsWith(p)) ||
+      adminPaths.some((p) => pathname.startsWith(p))
+    ) {
       return NextResponse.redirect(new URL("/patient", request.url));
     }
   }
 
+  if(doctorVerifiedCookie?.value === "false" && doctorPaths.some((p) => pathname.startsWith(p))){
+    return NextResponse.redirect(new URL("/verify", request.url));
+  }
   const protectedPaths = [...patientPaths, ...doctorPaths, ...adminPaths];
-  if (!doctorCookie && !patientCookie && !adminCookie && protectedPaths.includes(pathname)) {
-    return NextResponse.redirect(new URL("/login", request.url));
+  if (!doctorCookie && !patientCookie && !adminCookie) {
+    if (protectedPaths.some((p) => pathname.startsWith(p))) {
+      return NextResponse.redirect(new URL("/login", request.url));
+    }
   }
 
   return NextResponse.next();
