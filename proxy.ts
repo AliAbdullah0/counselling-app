@@ -5,6 +5,7 @@ export function proxy(request: NextRequest) {
   const doctorCookie = request.cookies.get("doctor.session.id");
   const patientCookie = request.cookies.get("session.cookie.id");
   const adminCookie = request.cookies.get("admin.session.id");
+  const doctorVerifiedCookie = request.cookies.get("verified.doctor");
 
   const pathname = request.nextUrl.pathname;
 
@@ -43,6 +44,9 @@ export function proxy(request: NextRequest) {
     }
   }
 
+  if(doctorVerifiedCookie?.value === "false" && doctorPaths.some((p) => pathname.startsWith(p))){
+    return NextResponse.redirect(new URL("/verify", request.url));
+  }
   const protectedPaths = [...patientPaths, ...doctorPaths, ...adminPaths];
   if (!doctorCookie && !patientCookie && !adminCookie) {
     if (protectedPaths.some((p) => pathname.startsWith(p))) {

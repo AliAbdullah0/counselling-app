@@ -15,7 +15,7 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
       <div className="hidden md:flex w-72 border-r border-zinc-200 bg-white flex-col">
         <div className="border-b border-zinc-200 px-6 py-5">
           <div className="flex items-center gap-3">
-            <div className="h-9 w-9 rounded-2xl bg-linear-to-br from-[#7F8B6E] to-[#B7B0A3] flex items-center justify-center shadow-sm">
+            <div className="h-9 w-9 rounded-2xl bg-foreground flex items-center justify-center shadow-sm">
               <span className="text-white font-bold text-2xl">A</span>
             </div>
             <div>

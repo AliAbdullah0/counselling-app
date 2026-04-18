@@ -73,6 +73,7 @@ export const createDoctor = async (form: FormData) => {
     })
 
     await cookie.set("doctor.session.id", newDoctor.id)
+    await cookie.set("verified.doctor", newDoctor.verified ? "true" : "false")
 
     return {
       status: 201,
@@ -113,6 +114,7 @@ export const loginDoctor = async (form: FormData) => {
      const cookie = await cookies()
 
     await cookie.set("doctor.session.id", doctor.id)
+    await cookie.set("verified.doctor", doctor.verified ? "true" : "false")
     return {
       status: 200,
       message: "Login successful.",
@@ -168,4 +170,25 @@ export const checkVerificationStatus = async () => {
     return { status: 500, verified:false }
 
  }
+}
+
+export const getAssignedPatients = async (doctorId:string) => {
+  try {
+    const patients = await prisma.patient.findMany({
+      where: { doctorId },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        contactNo: true,
+        age: true,
+        address: true,
+      },
+    })
+
+    return { status: 200, patients }
+  } catch (error) {
+    console.error(error)
+    return { status: 500, message: "Failed to fetch patients." }
+  }
 }

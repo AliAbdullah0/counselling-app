@@ -4,6 +4,8 @@ import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
 import Navigation from "@/components/Navigation";
 import { Footer7 } from "@/components/footer7";
+import { PatientProvider } from "@/context/Patient";
+import { DoctorProvider } from "@/context/Doctor";
 
 
 
@@ -37,9 +39,13 @@ export default function RootLayout({
         {/* using a server component so auth state is resolved on the server */}
         {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
         {/*@ts-ignore */}
-        <Navigation />        {children}
+        <DoctorProvider>
+        <PatientProvider>
+        <Navigation />      
+          {children}
         <Toaster position="bottom-right" richColors/>
-        <Footer7 className="mt-20"/>
+        </PatientProvider>
+        </DoctorProvider>
       </body>
     </html>
   );

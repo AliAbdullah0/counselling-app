@@ -21,15 +21,19 @@ model Patient {
   contactNo String?
   age String?
   address String
-  Doctors Doctor[]
+
+  doctorId String?     
+  doctor Doctor? @relation(fields: [doctorId], references: [id], onDelete: SetNull)
+  contactRequests ContactRequest[]
+
+  reports Report[]     
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   @@index([email])
 }
-
-model Doctor{
+model Doctor {
   id String @id @default(cuid())
   name String 
   email String @unique
@@ -43,8 +47,8 @@ model Doctor{
   verified Boolean @default(false)
   speciality String
 
-  patientId String?
-  Patient Patient? @relation(fields: [patientId],references: [id],onDelete: Cascade)
+  patients Patient[]   
+  contactRequests ContactRequest[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -83,7 +87,30 @@ model Report {
   url String
 
   patientId String
+  patient Patient @relation(fields: [patientId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model ContactRequest {
+  id String @id @default(cuid())
+
+  message String
+  status STATUS @default(PENDING)
+
+  patientId String
+  doctorId String
+
+  patient Patient @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  doctor Doctor @relation(fields: [doctorId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum STATUS {
+  PENDING
+  ACCEPTED
+  REJECTED
 }
